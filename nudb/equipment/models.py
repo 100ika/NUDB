@@ -48,11 +48,10 @@ class Equipment(models.Model):
     def __str__(self):
         return self.name
 
-
 class Service(models.Model):
     equipment = models.ForeignKey(Equipment, verbose_name="equipment", on_delete=models.CASCADE)
     last_service = models.DateField("last service", default=date.today)
-    #next_service = 
+    next_service = models.DateField('Next service', null=False, help_text= "Please use following format: <em>YYYY-MM-DD</em>.")
     spares = models.CharField("Spares", max_length=150)
     what_is_done = models.TextField("What is done")
 
@@ -62,6 +61,8 @@ class Service(models.Model):
 
     def __str__(self):
         return self.equipment
+
+
 
 
 class Block(models.Model):
@@ -126,7 +127,7 @@ class Notification(models.Model):
     node = models.ForeignKey(
         Node, verbose_name="Node", on_delete=models.CASCADE
         )
-   # time = 
+    time = models.DateTimeField('Time', add_now=True)
     type = models.ManyToManyField(
         AlarmType, verbose_name="Type")
     checked = models.BooleanField("Checked", default=False)
