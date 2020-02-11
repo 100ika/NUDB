@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'equipment',
+    #'User',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'nudb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'NUDB',
+        'NAME': 'DB',
         'USER': '100ika',
         'PASSWORD': 'swagswag',
         'HOST': '127.0.0.1',
@@ -85,6 +86,7 @@ DATABASES = {
     }
 }
 
+#AUTH_USER_MODEL = 'User.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

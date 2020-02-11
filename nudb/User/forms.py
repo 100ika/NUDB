@@ -44,7 +44,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'firstname', 'lastname')
+        fields = ('email', 'first_name', 'last_name')
 
 
 class UserChangeForm(forms.ModelForm):
