@@ -1,5 +1,19 @@
+from django import forms
 from django.contrib import admin
 from .models import AlarmType, Manufacturer, Equipment, EquipmentType, ResponsiblePerson, TechnicalContact, Service, Block, Laboratory, Node, Notification
+
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
+
+class EquipmentAdminForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Equipment
+        fields = '__all__'
+
+
+#admin.site.register(Equipment, EquipmentAdmin)
 
 
 @admin.register(AlarmType)
@@ -21,8 +35,11 @@ class EquipmentAdmin(admin.ModelAdmin):
     list_display = (
         "name", "description", "manufacturer", "manual",)
     list_filter = ("name", "manufacturer",)
-    search_fields = ("name",)
-    #list_display_links = ("name", )
+    search_fields = (
+        "name", "type_of_equipment", "manufacturer", "responsible_person"
+    )
+    list_display_links = ("name", )
+    form = EquipmentAdminForm
 
 
 @admin.register(EquipmentType)

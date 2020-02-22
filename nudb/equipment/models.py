@@ -137,7 +137,7 @@ class Service(models.Model):
         verbose_name_plural = "Services"
 
     def __str__(self):
-        return self.equipment
+        return str(self.equipment)
 
 
 class Block(models.Model):
@@ -154,7 +154,11 @@ class Block(models.Model):
 
 class Laboratory(models.Model):
     id = models.AutoField(primary_key=True)
-    block = models.ManyToManyField(Block, verbose_name="Block")
+    # block = models.CharField("Block", max_length=32, null=True)
+    block = models.ForeignKey(
+        Block, max_length=2, verbose_name="Block", null=True,
+        on_delete=models.SET_NULL
+    )
     floor = models.CharField("Floor", max_length=2)
     room = models.CharField("Room", max_length=6)  # primary_key = True,
     department = models.CharField(
@@ -167,8 +171,8 @@ class Laboratory(models.Model):
         verbose_name = "Laboratory"
         verbose_name_plural = "Laboratories"
 
-    def __unicode__(self):  # unicode?
-        return f"{self.block} - {self.room}"
+    def __str__(self):  # unicode?
+        return f"{self.block} - {self.floor} - {self.room}"
 
 
 class Node(models.Model):
@@ -191,7 +195,8 @@ class Node(models.Model):
         "Date of last service", default=date.today
     )
     #date_of_next_service = models.DateField("Date of next service", default=date.today)
-    inventory_number = models.CharField("Inventory nimber", max_length=20)
+    inventory_number = models.CharField(
+        "Inventory nimber", max_length=20)  # !!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     class Meta:
         verbose_name = "Node"
@@ -217,4 +222,4 @@ class Notification(models.Model):
         verbose_name_plural = ("Notifications")
 
     def __str__(self):
-        return self.node
+        return str(self.node)

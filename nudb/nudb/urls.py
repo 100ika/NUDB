@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from schema_graph.views import Schema
+
+"""admin.site.site_header = 'MonETS'
+admin.site.site_title = 'Dogs'
+#admin.site.index_title = 'Nazarbayev University Data Base'"""
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('equipment.urls'))
+    path('', include('equipment.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path("schema/", Schema.as_view()),
 ]
